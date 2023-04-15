@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+public class Main {
+    static void printArirmeticProgression(int d, int n, int current) {
+        System.out.print(current + " ");
+
+        if (n == 0) return;
+
+        printArirmeticProgression(d, n - 1, current + d);
+    }
+
+    public static void main(String[] args) {
+        int a, d, n;
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the start value of the progression : ");
+        a = sc.nextInt();
+        System.out.println("Enter the difference between the members in the progression : ");
+        d = sc.nextInt();
+        System.out.println("Enter the the length of the progression : ");
+        n = sc.nextInt();
+
+        printArirmeticProgression(d, n - 1, a);
+    }
+}
