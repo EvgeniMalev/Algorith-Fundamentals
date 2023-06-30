@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] nucleusInput = scanner.nextLine().split(" "); // write the nucleus as input integers with blankspace
+        int[] nucleus = new int[nucleusInput.length];
+        for (int i = 0; i < nucleusInput.length; i++) { // for cycle to read the integers
+            nucleus[i] = Integer.parseInt(nucleusInput[i]);
+        }
+
+        int K = Integer.parseInt(scanner.nextLine()); // The K should be less than N
+
+        List<List<Integer>> sequences = generateSequences(nucleus, K);
+
+        // Print all the generated sequences
+        for (List<Integer> sequence : sequences) {
+            System.out.println(sequence);
+        }
+    }
+
+    // place tio use and write the recursion
+    public static List<List<Integer>> generateSequences(int[] nucleus, int K) {
+        List<List<Integer>> sequences = new ArrayList<>();
+        generateSequencesHelper(nucleus, K, new ArrayList<>(), sequences);
+        return sequences;
+    }
+    // method to create a new ordered group of nucleus
+    private static void generateSequencesHelper(int[] nucleus, int K, List<Integer> currentSequence, List<List<Integer>> sequences) {
+        if (currentSequence.size() == K) {
+            sequences.add(new ArrayList<>(currentSequence));
+            return;
+        }
+
+        for (int i = 0; i < nucleus.length; i++) {
+            int currentNucleus = nucleus[i];
+            if (!currentSequence.contains(currentNucleus)) {
+                currentSequence.add(currentNucleus);
+                generateSequencesHelper(nucleus, K, new ArrayList<>(currentSequence), sequences);
+                currentSequence.remove(currentSequence.size() - 1);
+            }
+        }
+    }
+}
