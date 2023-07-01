@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        
+        Scanner scanner = new Scanner(System.in);
+        
+        int N = Integer.parseInt(scanner.nextLine());
+        List<List<Integer>> combinations = findCombinations(N);
+        printCombinations(combinations);
+    }
+
+    public static List<List<Integer>> findCombinations(int N) {
+        List<List<Integer>> result = new ArrayList<>();
+        findCombinationsHelper(N, new ArrayList<>(), result);
+        return result;
+    }
+
+    private static void findCombinationsHelper(int remaining, List<Integer> currentCombination, List<List<Integer>> result) {
+        if (remaining == 0) {
+            result.add(new ArrayList<>(currentCombination));
+            return;
+        }
+
+        for (int i = 1; i <= remaining; i++) {
+            currentCombination.add(i);
+            findCombinationsHelper(remaining - i, currentCombination, result);
+            currentCombination.remove(currentCombination.size() - 1);
+        }
+    }
+
+    public static void printCombinations(List<List<Integer>> combinations) {
+        for (List<Integer> combination : combinations) {
+            System.out.println(combination);
+        }
+    }
+}
