@@ -1,0 +1,37 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] nucleusInput = scanner.nextLine().split(" ");
+        int[] array = new int[nucleusInput.length];
+        for (int i = 0; i < nucleusInput.length; i++) {
+            array[i] = Integer.parseInt(nucleusInput[i]);
+        }
+
+        List<List<Integer>> superSet = generateSuperSet(array);
+
+        for (List<Integer> subset : superSet) {
+            System.out.println(subset);
+        }
+    }
+
+    private static List<List<Integer>> generateSuperSet(int[] array) {
+        List<List<Integer>> superSet = new ArrayList<>();
+        generateSubsets(array, 0, new ArrayList<>(), superSet);
+        return superSet;
+    }
+
+    private static void generateSubsets(int[] array, int index, List<Integer> currentSubset, List<List<Integer>> superSet) {
+        superSet.add(new ArrayList<>(currentSubset));
+
+        for (int i = index; i < array.length; i++) {
+            currentSubset.add(array[i]);
+            generateSubsets(array, i + 1, currentSubset, superSet);
+            currentSubset.remove(currentSubset.size() - 1);
+        }
+    }
+}
