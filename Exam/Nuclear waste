@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class Nuclearwaste {
+     public static void main(String[] args) {
+         Scanner scanner = new Scanner(System.in);
+		 
+		 // Прочитаме реда под формата на стрингов масив
+		 String[] inputcost = scanner.nextLine().split(" ");
+		 int[] fcosts = Arrays.stream(inputcost).mapToInt(Integer::parseInt).toArray();
+		 
+		 int N = Integer.parseInt(scanner.nextLine());
+		 int[] optimalSetup = calculateOptimalSetup(fcosts, N);
+		 
+		 int minimumCost = optimalSetup[N];
+		 
+		 // Цикъл за обхождане на минимален брой пренесени контейнери
+		 for (int i = 1; i <= N; i++) {
+		    if (optimalSetup[i] != Integer.MAX_VALUE) {
+			     System.out.println(i + " => " + optimalSetup[i]);
+			}
+		 }
+
+        // Създаване на нов клас за изчисляване на финалния оптимален вариант
+        private static int[] calculateOptimalSetup(int[] flaskCosts, int N) {
+        int[] dp = new int[N + 1];
+
+        // Инициализираме масив, в който ще запишем финалните стойности
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
+
+        // с два цикъла обхождаме всички пъти и тяхната дължина
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= fCosts.length; j++) {
+                if (i >= j && dp[i - j] != Integer.MAX_VALUE) {
+                    dp[i] = Math.min(dp[i], dp[i - j] + flaskCosts[j - 1]);
+                }
+            }
+        }
+
+        return dp;
+    }
+}	
