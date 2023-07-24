@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class Socks {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the left sock sequence: ");
+        int[] leftSocks = parseInputArray(scanner.nextLine());
+        System.out.print("Enter the right sock sequence: ");
+        int[] rightSocks = parseInputArray(scanner.nextLine());
+
+        int longestSequenceLength = findLongestSequenceLength(leftSocks, rightSocks);
+        System.out.println("The length of the longest sequence that appears in the same relative order is: " + longestSequenceLength);
+    }
+
+
+    private static int[] parseInputArray(String input) {
+        String[] inputArray = input.split(" ");
+        int[] socksArray = new int[inputArray.length];
+        for (int i = 0; i < inputArray.length; i++) {
+            socksArray[i] = Integer.parseInt(inputArray[i]);
+        }
+        return socksArray;
+    }
+
+    private static int findLongestSequenceLength(int[] leftSocks, int[] rightSocks) {
+        int leftLength = leftSocks.length;
+        int rightLength = rightSocks.length;
+        int[][] dp = new int[leftLength + 1][rightLength + 1];
+
+        for (int i = 1; i <= leftLength; i++) {
+            for (int j = 1; j <= rightLength; j++) {
+                if (leftSocks[i - 1] == rightSocks[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        return dp[leftLength][rightLength];
+    }
+}
