@@ -13,7 +13,7 @@ class Main {
             String input = scanner.nextLine();
 
             if (input.equals("end")) {
-                break; // Exit the loop when 'end' is entered
+                break; 
             }
 
             try {
@@ -26,7 +26,6 @@ class Main {
 
         System.out.println("Unsorted ArrayList: " + numbers);
 
-        // Using the sort() method
         Collections.sort(numbers);
         System.out.println("Sorted ArrayList: " + numbers);
     }
